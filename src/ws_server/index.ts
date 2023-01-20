@@ -11,38 +11,15 @@ export const createWSServer = (port: number) => {
         console.log('New client connected!');
 
         const webSocketStream = createWebSocketStream(ws, { 
-
             encoding: 'utf8',
-
+            decodeStrings: false,
         });
-        
+
         webSocketStream.on('error', console.error);
 
-        // const response = new Writable({
-        //     objectMode: true,
-        //     write(data, encoding, callback) {
-        //         console.log(data);
-                
-        //         webSocketStream.write(data);
-        //         callback();
-        //     },
-        // });
-
-        // const tunnel = new PassThrough();
-
-        // tunnel.on("", (chunk) => {
-
-        // });
-
-        webSocketStream.on('data', function(data: Buffer){
+        webSocketStream.on('data', function(data: Buffer){            
             Router(data.toString(), webSocketStream);
         });
-
-        // ws.on('message', (data: Buffer) => {
-        //     Router(data.toString(), response);           
-        // });
-    
-    
     
         ws.on('close', () => console.log('Client has disconnected!'));
     });

@@ -8,9 +8,11 @@ export const Router = async (message: String, response: Writable) => {
     if (isMouseEvent(cmd[0])) {
         result = await mouseEvents[cmd[0]](+cmd[1]);
     }
-    
-    if (result)
-        response.write(result);
+
+    if (!result)
+        result = cmd[0];
+
+    response.write(result);
     
     // ["draw_square", "draw_rectangle", "draw_circle"]
     // ["prnt_scrn"]
