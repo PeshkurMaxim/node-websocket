@@ -17,6 +17,7 @@ export const mouse_right = async (pixels: number) => {
 }
 
 export const mouse_position = async (pixels: number) => {
-    // await mouse.move(right(pixels));
+    const point = await mouse.getPosition();
+    return `mouse_position: ${point.x} px, ${point.y} px`;
 }
 

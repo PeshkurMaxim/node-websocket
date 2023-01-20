@@ -1,12 +1,16 @@
+import { Writable } from "stream";
 import * as mouseEvents from "../services/mouse";
 
-export const Router = async (message: String) => {
+export const Router = async (message: String, response: Writable) => {
     const cmd = message.toString().split(" ");
-    console.log(cmd[0]);
-    
+    let result = null;
+        
     if (isMouseEvent(cmd[0])) {
-        await mouseEvents[cmd[0]](+cmd[1]);
+        result = await mouseEvents[cmd[0]](+cmd[1]);
     }
+    
+    if (result)
+        response.write(result);
     
     // ["draw_square", "draw_rectangle", "draw_circle"]
     // ["prnt_scrn"]
