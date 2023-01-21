@@ -1,9 +1,21 @@
-import { mouse, left, up, down, right, Point, Button, straightTo } from "@nut-tree/nut-js";
+import { mouse, left, up, down, right, Point, Button, straightTo, screen } from "@nut-tree/nut-js";
 
 export const draw_circle = async (pixels: number) => {
     const start = await mouse.getPosition();
     const center = new Point(start.x, start.y + pixels);
     const step = 0.01;
+
+    const sw = await screen.width();
+    const sh = await screen.height();
+    
+    if (
+        center.x + pixels > sw ||
+        center.x - pixels < 0 ||
+        center.y + pixels > sh ||
+        center.x - pixels < 0
+    ) {
+        return "Out\xa0of\xa0range";
+    }
 
     await mouse.pressButton(Button.LEFT);
 
